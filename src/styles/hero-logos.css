@@ -1,0 +1,17 @@
+.hero-logo-animation { display: flow-root; aspect-ratio: auto; padding-bottom: 3.5rem; background: none; }
+.hero-logo-stage { position: relative; width: 68%; aspect-ratio: 1; margin: 5% auto 0; }
+.hero-logo-tile {
+ position: absolute; inset: 0 auto auto 0; width: 30%; aspect-ratio: 1;
+ display: grid; place-items: center; background: transparent;
+ transition: transform .6s var(--ease);
+}
+.hero-logo-tile img { display: block; width: 86%; height: 86%; object-fit: contain; user-select: none; pointer-events: none; }
+:root[data-theme='dark'] .hero-logo-tile img { filter: invert(1); }
+.hero-logo-animation .visual-caption { left: 5%; right: 5%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.hero-logo-tile--react { transform: translate(9.722222%, 9.722222%); }
+.hero-logo-tile--python { transform: translate(223.611111%, 9.722222%); }
+.hero-logo-tile--javascript { transform: translate(116.666667%, 116.666667%); }
+.hero-logo-tile--blender { transform: translate(9.722222%, 223.611111%); }
+.hero-logo-tile--sql { transform: translate(223.611111%, 223.611111%); }
+@media (max-width: 700px) { .hero-logo-animation { width: min(80%, 330px); max-height: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-logo-tile { transition: none; } }

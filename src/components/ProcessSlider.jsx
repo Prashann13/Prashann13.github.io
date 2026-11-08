@@ -1,0 +1,6 @@
+import { useId, useState } from 'react';
+import { content } from '../data/content';
+export default function ProcessSlider({ process }) {
+ const [value, setValue] = useState(50); const [stage, setStage] = useState('wireframe'); const id = useId(); const c = content.blender;
+ return <div className="process-block"><h3 className="eyebrow">{process.previewLabel || c.process}</h3><div className="filter-row">{['wireframe', 'clay'].map((key) => <button key={key} className="filter-button" type="button" aria-pressed={stage === key} onClick={() => setStage(key)}>{c[key]}</button>)}</div><div className="comparison"><img src={process[stage]} alt={process.alt} width="1200" height="900" /><img className="comparison-final" src={process.final} alt={process.alt} width="1200" height="900" style={{ clipPath: 'inset(0 0 0 ' + value + '%)' }} /><span className="comparison-line" style={{ left: value + '%' }} aria-hidden="true" /></div><label htmlFor={id} className="meta">{c.compare}</label><input id={id} type="range" min="0" max="100" value={value} onChange={(event) => setValue(Number(event.target.value))} aria-valuetext={String(100 - value) + '% ' + c.final} /></div>;
+}

@@ -1,0 +1,36 @@
+:root {
+  --font-body: 'Segoe UI', Arial, system-ui, sans-serif;
+  --font-display: 'Bahnschrift', 'Arial Narrow', 'Segoe UI', sans-serif;
+  --font-technical: 'Cascadia Code', Consolas, monospace;
+  --night: #07080d; --original-panel: #111018; --cyan: #00e5ed;
+  --red: #ff4655; --lime: #6eff8a; --amber: #ffc857; --magenta: #d671b7;
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4rem; --space-9: 6rem;
+  --gutter: clamp(1.25rem, 5vw, 5rem); --content-width: 1440px;
+  --text-xs: .7rem; --text-sm: .85rem; --text-base: 1rem;
+  --text-title: clamp(2rem, 5vw, 4rem); --text-hero: clamp(3.5rem, 8vw, 8.5rem);
+  --line-body: 1.75; --tracking: .12em; --line: 1px;
+  --corner: 12px; --radius: 2px; --header-height: 76px;
+  --ease: cubic-bezier(.22, 1, .36, 1); --duration: 220ms;
+  --clip: polygon(0 0, calc(100% - var(--corner)) 0, 100% var(--corner), 100% 100%, var(--corner) 100%, 0 calc(100% - var(--corner)));
+}
+:root, :root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #07080d; --surface: #111218; --surface-raised: #191a21;
+  --text: #f4f4f2; --muted: #a5a6b1; --border: #353640;
+  --primary: #ffc857; --on-primary: #07080d; --signal: #00e5ed;
+  --error: #ff7b85; --status: #6eff8a; --shadow: 0 20px 60px #00000030;
+  --glow: 0 0 16px #00e5ed12; --grid-color: #f4f4f208;
+  --scene-clay: #8996a9; --scene-base: #232833; --scene-wire: #ffc857; --scene-rim: #00e5ed; --scene-sky: #d8e1ed;
+  --image-tone: grayscale(1) brightness(.7); --overlay: #07080dcc;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f1e9; --surface: #eae7df; --surface-raised: #fffdf7;
+  --text: #17191e; --muted: #555862; --border: #b7b6ae;
+  --primary: #ffc857; --on-primary: #17191e; --signal: #006b70;
+  --error: #b42335; --status: #217440; --shadow: 0 20px 60px #22221812;
+  --glow: 0 0 12px #006b700a; --grid-color: #17191e0b;
+  --scene-clay: #b9b4a6; --scene-base: #c7c6be; --scene-wire: #8a5700; --scene-rim: #006b70; --scene-sky: #fffdf4;
+  --image-tone: grayscale(1) brightness(.6); --overlay: #f4f1e9e8;
+}

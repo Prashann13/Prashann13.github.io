@@ -1,0 +1,85 @@
+.blender-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2rem; }
+.blender-preview { display: block; width: 100%; aspect-ratio: 4/3; border: 0; padding: 0; position: relative; overflow: hidden; background: var(--surface); clip-path: var(--clip); }
+.blender-preview img, .blender-preview video { width: 100%; height: 100%; object-fit: cover; }
+.blender-preview video { position: absolute; inset: 0; opacity: 0; transition: opacity .25s var(--ease); }
+.blender-preview:hover video { opacity: 1; }
+.blender-card .card-meta { margin-top: 1.5rem; }
+.blender-card h2 { font: 500 1.3rem/1.4 var(--font-display); letter-spacing: -.02em; }
+.comparison { position: relative; aspect-ratio: 4/3; }
+.comparison img { height: 100%; width: 100%; object-fit: cover; }
+.comparison-final { position: absolute; inset: 0; }
+.comparison-line { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--primary); }
+.process-block { margin-top: 2rem; }
+.process-block input[type='range'] { width: 100%; accent-color: var(--signal); min-height: 44px; cursor: ew-resize; margin-top: .5rem; }
+.process-block label { display: block; margin-top: 1rem; }
+.model-stage { position: relative; aspect-ratio: 4/3; background: var(--surface); }
+.model-stage > img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.model-canvas { width: 100%; height: 100%; position: relative; }
+.model-loading { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; background: var(--surface); color: var(--text); font: .8rem/1.5 var(--font-technical); }
+.blender-detail { max-width: 1200px; margin-inline: auto; }
+.blender-detail-header h1 { font: 500 clamp(1.65rem, 4vw, 3.8rem)/1.1 var(--font-display); letter-spacing: -.04em; overflow-wrap: anywhere; margin-block: 1.5rem; }
+.detail-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 1rem; }
+.blender-detail-block { padding-block: clamp(2rem, 6vw, 4.5rem); border-bottom: 1px solid var(--border); }
+.blender-detail-block > h2 { font: 500 1.5rem/1.3 var(--font-display); color: var(--text); margin: 0 0 1.5rem; }
+.blender-description-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+.blender-description-grid h3 { font: 500 1rem/1.4 var(--font-display); }
+.blender-description-grid p, .blender-detail-block > p { max-width: 65ch; line-height: 1.7; color: var(--muted); }
+.blender-stats { align-self: start; padding: 1.5rem; background: var(--surface); border-top: 1px solid var(--signal); }
+.blender-stats dl { margin: 0; } .blender-stats dl > div { padding-block: .75rem; border-bottom: 1px solid var(--border); }
+.blender-stats dt { font: .7rem/1.5 var(--font-technical); color: var(--muted); }
+.blender-stats dd { margin: .3rem 0 0; font-size: .85rem; overflow-wrap: anywhere; }
+.blender-detail-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+.blender-detail-nav a { display: flex; flex-direction: column; gap: .5rem; min-height: 44px; padding: 1rem 0; }
+.blender-detail-nav a:last-child { text-align: right; }
+.blender-detail-nav strong { font: 400 .8rem/1.6 var(--font-body); overflow-wrap: anywhere; }
+.render-image { display: block; width: 100%; padding: 0; border: 0; text-align: left; background: var(--surface); color: var(--text); }
+.render-image img { display: block; width: 100%; height: auto; } .render-image span { display: block; padding: 1rem; }
+.render-gallery { display: grid; gap: 1.5rem; }
+.render-zoom { width: min(1200px, 94vw); max-height: 94svh; margin: auto; padding: 1rem; border: 1px solid var(--border); background: var(--surface); color: var(--text); box-shadow: var(--shadow); overscroll-behavior: contain; }
+.render-zoom::backdrop { background: var(--overlay); }
+.render-zoom > button { display: block; margin: 0 0 1rem auto; }
+.render-zoom img { display: block; width: 100%; max-height: 78svh; object-fit: contain; }
+.animation-player { background: var(--surface); padding-bottom: 1rem; }
+.animation-player video, .animation-player > img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: contain; }
+.animation-player .placeholder { padding-inline: 1rem; }
+.video-controls { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; padding: 1rem; }
+.video-controls input[type='range'] { flex: 1; min-width: 80px; accent-color: var(--signal); min-height: 44px; }
+.video-controls button { min-height: 44px; } .video-controls output { min-width: 45px; }
+.animation-player:fullscreen { display: flex; flex-direction: column; justify-content: center; } .animation-player:fullscreen video { max-height: 80svh; }
+.blender-preview:focus-visible { outline: 0; box-shadow: inset 0 0 0 3px var(--signal); }
+.blender-preview:focus-visible::after { content: ''; position: absolute; inset: 0; border: 3px solid var(--signal); z-index: 2; pointer-events: none; }
+@media (max-width: 700px) { .blender-grid { grid-template-columns: 1fr; gap: 2rem; } .blender-description-grid { grid-template-columns: 1fr; } .video-controls { padding: .5rem; } }
+@media (prefers-reduced-motion: reduce) { .blender-preview video { transition: none; } }
+
+/* One stage remains mounted across shading modes. Scroll safety overrides OrbitControls' inline touch-action. */
+.model-viewer { border: var(--line) solid var(--border); background: var(--surface); position: relative; }
+.model-viewer .model-canvas { aspect-ratio: 4/3; height: auto; outline-offset: -3px; cursor: grab; }
+.model-canvas canvas { touch-action: pan-y !important; cursor: inherit; }
+.model-canvas[data-touch-active='true'] canvas { touch-action: none !important; }
+.model-canvas[data-dragging='true'] { cursor: grabbing; }
+.model-canvas:focus-visible { outline: 3px solid var(--signal); }
+.model-control-bar { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-4); border-top: var(--line) solid var(--border); }
+.model-control-bar button { min-height: 44px; min-width: 44px; clip-path: var(--clip); }
+.model-control-bar button[aria-pressed='true'] { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
+.model-shading { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.model-control-bar button:focus-visible { outline: 0; box-shadow: inset 0 0 0 3px var(--signal); }
+.model-control-bar button:disabled { opacity: .55; cursor: wait; }
+.model-hint { margin: 0; padding: 0 var(--space-4) var(--space-3); color: var(--muted); line-height: 1.6; }
+.model-hint { font-size: .75rem; }
+.model-first-hint { position: absolute; left: 50%; bottom: var(--space-5); transform: translateX(-50%); display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface-raised); color: var(--text); border: var(--line) solid var(--border); font: .8rem/1.5 var(--font-technical); max-width: 90%; pointer-events: none; }
+.model-drag-icon { display: inline-block; font-size: 1.2rem; }
+.model-viewer:fullscreen { display: flex; flex-direction: column; justify-content: center; padding: var(--space-4); background: var(--bg); width: 100%; height: 100%; }
+.model-viewer:fullscreen .model-canvas { flex: 1; min-height: 0; width: 100%; aspect-ratio: auto; }
+.model-viewer:fullscreen .model-control-bar { flex-shrink: 0; }
+.model-interact { margin-left: auto; }
+.model-hotspot { position: relative; font: .8rem/1.5 var(--font-body); color: var(--text); }
+.model-hotspot summary { display: grid; place-items: center; list-style: none; width: 44px; height: 44px; border: var(--line) solid var(--signal); border-radius: 50%; background: var(--surface-raised); cursor: pointer; }
+.model-hotspot summary::-webkit-details-marker { display: none; }
+.model-hotspot > div { width: min(240px, 60vw); padding: var(--space-4); background: var(--surface-raised); border: var(--line) solid var(--border); position: absolute; top: 48px; left: 50%; transform: translateX(-50%); }
+.model-hotspot p { margin-bottom: 0; }
+@media (max-width: 600px) {
+ .model-control-bar { padding: var(--space-2); }
+ .model-viewer .model-canvas { aspect-ratio: 1; }
+ .model-hint { padding-inline: var(--space-3); }
+ .model-first-hint { width: max-content; font-size: .7rem; }
+}

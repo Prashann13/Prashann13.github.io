@@ -1,0 +1,71 @@
+// Confirmed section copy; project descriptions live in projectExtras.js.
+export const content = {
+  hero: {
+    eyebrow: 'SYSTEM // PROFILE 001', status: 'OPEN TO OPPORTUNITIES',
+    greeting: "Hi, I'm", name: 'Prashann', punctuation: '.',
+    description: 'I build useful web experiences with clean interfaces and thoughtful code.',
+    roles: ['PYTHON','FULL-STACK', 'DESIGN','AI/ML // SECURITY'],
+    visualLabel: '// VISUAL RECORD', roleLabel: 'ROLE', focusLabel: 'FOCUS',
+    statusLabel: 'STATUS', online: 'ONLINE',
+    portrait: '/portrait.webp', portraitOptimized: '/portrait.webp', portraitSmall: '/portrait-small.webp', portraitMedium: '/portrait-medium.webp',
+    portraitAlt: 'Portrait of Prashann Mishra.', portraitMarker: '',
+    art: '/logos/react.png', artAlt: 'React, Python, JavaScript, Blender and SQL logos arranged in a sliding grid.',
+    artLabel: 'TOOLS / IN MOTION', scrollLabel: 'SCROLL TO EXPLORE',
+  },
+  about: {
+    eyebrow: '01 // OPERATOR PROFILE', title: 'About me',
+    focus: 'Full-Stack Development',
+    focusDescription: 'React, responsive interfaces, accessibility, and clean component structure.',
+    paragraphs: ['I’m Prashann Mishra, a full-stack developer and a recent graduate. I’m looking for full-time roles, freelance work, and collaborations. I work across the full stack: building responsive, accessible interfaces in React, backed by clean APIs and well-structured server-side code. I’m also curious about AI/ML, design, and security. Frontend is where logic and design meet. I write code, and the result is right there in front of me. I can see whether it works the way it was meant to. Behind every good interface is clean component architecture and sound state handling. In front of it is layout, spacing, and the feel of using it. I aim for both, on any screen and for anyone.'],
+    marker: '', interest: 'Outside development, I enjoy reading fiction.', booksLabel: 'Favourite books',
+    books: ['Howling Dark — Christopher Ruocchio.', 'A Clash of Kings — George R. R. Martin.'],
+  },
+  projects: {
+    eyebrow: '02 // PROJECT ARCHIVE', title: 'Featured projects',
+    description: 'Selected builds, experiments, and practical work. Explore the source code and project details.',
+    cardLabel: 'PROJECT //', all: 'All projects', filterLabel: 'Filter projects by technology',
+    archive: 'EXPLORE PROJECT ARCHIVE',
+    caseStudy: 'VIEW PROJECT', live: 'LIVE DEMO', repo: 'SOURCE CODE',
+    fallbackMarker: 'Preview unavailable', liveMarker: 'Live demo pending',
+  },
+  skills: {
+    eyebrow: '03 // CAPABILITIES', title: 'Skills',
+    description: 'A practical overview of the technologies and practices I use.', module: 'MODULE //', certifications: 'Certifications',
+  },
+  contact: {
+    eyebrow: '04 // OPEN CHANNEL', title: 'Get in touch',
+    description: 'Have a role, project, or question in mind? Send a message.',
+    direct: 'For direct contact, email me at:', channel: 'RESPONSE CHANNEL // EMAIL',
+    name: 'Name', email: 'Email', message: 'Message', send: 'SEND MESSAGE', sending: 'SENDING...',
+  },
+  experience: {
+    eyebrow: '04 // PATH & PRACTICE', title: 'Experience & education',
+  },
+  blender: {
+    eyebrow: '03 // BEYOND THE SCREEN', title: 'Blender projects',
+    description: 'Models and animations made in Blender. The fourth entry is a clearly marked sample.',
+    all: 'All projects', categories: ['Renders', 'Animations', 'Models'],
+    empty: 'No projects in this category yet.', filterLabel: 'Filter Blender projects', open: 'OPEN PROJECT', featured: 'FEATURED',
+    process: 'PROCESS / WIREFRAME → FINAL', compare: 'Reveal final image',
+    wireframe: 'Wireframe', clay: 'Clay', final: 'Final', viewer: 'INTERACTIVE MODEL',
+    viewerHint: 'Drag to orbit · scroll to zoom',
+    sample: 'Procedural sample.',
+    glbError: 'Unable to load this model. Showing a static preview.',
+    mediaError: 'Media unavailable. Showing a static preview.',
+  },
+  caseStudy: {
+    eyebrow: 'PROJECT DETAILS', approach: 'The approach', outcome: 'The outcome',
+  },
+  notFound: { eyebrow: '404 // SIGNAL LOST', title: 'Page not found', description: 'The address may be wrong, or this page may have moved.', return: 'RETURN HOME' },
+};
+export const ui = {
+  webglUnavailable: 'Interactive view unavailable. Showing a static preview.', skip: 'SKIP TO CONTENT', mainNav: 'Main navigation', menu: 'MENU', close: 'CLOSE',
+  openMenu: 'Open menu', closeMenu: 'Close menu', work: 'OPEN TO WORK',
+  viewProjects: 'VIEW PROJECTS', downloadResume: 'DOWNLOAD RESUME', resume: 'RESUME',
+  light: 'LIGHT', dark: 'DARK', toggleTheme: 'Switch color theme',
+  boot: 'INITIALIZING INTERFACE', bootReady: 'READY / PROFILE 001', skipBoot: 'SKIP INTRO',
+  loading: 'LOADING', backTop: 'BACK TO TOP', backProjects: 'BACK TO PROJECTS',
+  closeDialog: 'Close project', previous: 'Previous project', next: 'Next project',
+  mediaFallback: 'Static preview', expand: 'VIEW',
+  rotateLeft: 'Rotate left', rotateRight: 'Rotate right', rotateRole: 'Rotate displayed role', resetView: 'RESET VIEW', enable3d: 'LOAD INTERACTIVE VIEW',
+};

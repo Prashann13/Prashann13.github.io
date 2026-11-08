@@ -1,0 +1,72 @@
+[data-theme='dark'] { --game-sky: #10151e; --game-far: #1c2634; --game-near: #334356; --game-ground: #263242; --game-moon: #b9c4ce; --game-cloak: #75bcc7; --game-ink: #10151e; --game-steel: #819ca5; --game-enemy-steel: #be9485; --game-enemy: #e39782; --game-highlight: #f7e4b9; --game-shadow: #172735; }
+[data-theme='light'] { --game-sky: #e9e5da; --game-far: #cec9be; --game-near: #8a918e; --game-ground: #666f6b; --game-moon: #fffdf4; --game-cloak: #222d3a; --game-ink: #171e24; --game-steel: #405650; --game-enemy-steel: #754838; --game-enemy: #96392f; --game-highlight: #fff5d7; --game-shadow: #495952; }
+.arcade-card { border: 1px solid var(--border); border-top-color: var(--primary); background: var(--surface); padding: clamp(1rem, 2vw, 1.75rem); min-width: 0; }
+.arcade-card h3 { font: 500 1.2rem/1.3 var(--font-display); margin: 0 0 1rem; }
+.arcade-presentation { max-width: 960px; margin-inline: auto; }
+.arcade-toolbar, .arcade-utilities { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.arcade-toolbar { margin-bottom: .75rem; }
+.arcade-area { color: var(--signal); }
+.arcade-utilities button { min-height: 44px; padding: .5rem .75rem; }
+.arcade-skip { display: inline-block; color: var(--muted); font-size: .75rem; margin-bottom: 1rem; }
+.arcade-skip:hover { color: var(--text); }
+.arcade-score { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .35rem .75rem; font: .8rem/1.5 var(--font-technical); padding-bottom: .6rem; }
+.arcade-score strong { color: var(--text); font-variant-numeric: tabular-nums; padding-left: .4rem; }
+.arcade-stage { position: relative; border: 1px solid var(--border); overflow: hidden; }
+.arcade-stage canvas { width: 100%; height: auto; display: block; aspect-ratio: 12 / 7; image-rendering: pixelated; touch-action: pan-y; }
+.arcade-overlay { position: absolute; inset: 0; background: color-mix(in srgb, var(--surface) 78%, transparent); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; gap: .6rem; text-align: center; }
+.arcade-overlay p, .arcade-overlay h4 { margin: 0; }
+.arcade-overlay h4 { font: 500 clamp(.9rem, 2vw, 1.6rem)/1.3 var(--font-display); }
+.arcade-overlay .hud-button { min-height: 44px; }
+.arcade-objective { max-width: 32ch; color: var(--muted); font-size: .85rem; }
+.arcade-controls { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-areas: 'left right duck . jump whip'; gap: .4rem; margin-top: .8rem; }
+.arcade-left { grid-area: left; } .arcade-right { grid-area: right; } .arcade-duck { grid-area: duck; } .arcade-jump { grid-area: jump; } .arcade-whip { grid-area: whip; }
+.arcade-controls .arcade-jump, .arcade-controls .arcade-whip { border-color: var(--primary); }
+.arcade-restart { min-height: 44px; }
+.arcade-controls button { padding: .6rem .25rem; min-height: 44px; touch-action: none; }
+.arcade-controls button:disabled { opacity: .5; cursor: default; }
+.arcade-boss { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem .75rem; margin-block: .5rem; font: .75rem/1.5 var(--font-technical); }
+.arcade-boss p { margin: 0; }
+.arcade-boss meter { width: 100%; height: .5rem; align-self: center; accent-color: var(--primary); }
+.arcade-boss > p:last-child { grid-column: 1 / -1; color: var(--text); }
+.arcade-checkpoint { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .75rem; }
+.arcade-checkpoint p, .arcade-guide { color: var(--muted); font: .75rem/1.5 var(--font-technical); }
+.arcade-checkpoint p { margin: 0; }
+.arcade-guide { margin: .75rem 0 0; }
+.arcade-modal { position: fixed; inset: 0; margin: auto; padding: clamp(.75rem, 2vw, 1.5rem); width: min(1100px, calc(100vw - 1.5rem)); max-width: none; max-height: calc(100dvh - 1.5rem); box-sizing: border-box; border: 1px solid var(--primary); background: var(--surface); color: var(--text); overflow-y: auto; overscroll-behavior: contain; }
+.arcade-modal::backdrop { background: rgb(0 0 0 / .8); }
+.arcade-modal-heading { display: flex; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+.arcade-modal-heading button { min-height: 44px; }
+.arcade-modal .arcade-stage { width: min(100%, calc((100dvh - 330px) * 12 / 7)); margin-inline: auto; }
+.arcade-modal .arcade-toolbar { margin-bottom: .35rem; }
+.arcade-modal .arcade-hints { margin-top: .5rem; }
+.arcade-hints { font-size: .8rem; line-height: 1.6; color: var(--muted); margin-top: 1rem; }
+.arcade-hints p { margin: .4rem 0; }
+.touch-hint { display: none; }
+.arcade-skeleton { aspect-ratio: 12 / 10; display: grid; place-items: center; background: var(--surface-raised); color: var(--muted); font: .75rem/1.5 var(--font-technical); }
+@media (pointer: coarse), (max-width: 700px) { .touch-hint { display: block; } .desktop-hint { display: none; } }
+@media (max-width: 360px) { .arcade-card { padding: .75rem; } .arcade-overlay { gap: .3rem; padding: .5rem; } }
+@media (max-width: 600px) {
+  .arcade-controls { grid-template-columns: repeat(5, minmax(0, 1fr)); grid-template-areas: 'left right duck jump whip'; gap: .35rem; }
+  .arcade-score { font-size: .7rem; }
+  .arcade-score strong { padding-left: .2rem; }
+  .arcade-overlay h4 { font-size: 1rem; }
+  .arcade-objective { display: none; }
+  .arcade-boss { grid-template-columns: 1fr; }
+  .arcade-modal .arcade-stage { width: 100%; }
+}
+@media (max-height: 560px) {
+  .arcade-modal { padding: .5rem .75rem; }
+  .arcade-modal-heading { margin-bottom: .25rem; }
+  .arcade-modal .arcade-hints, .arcade-modal .arcade-guide { display: none; }
+  .arcade-modal .arcade-checkpoint { margin-top: .35rem; }
+  .arcade-modal .arcade-stage { width: min(100%, calc((100dvh - 245px) * 12 / 7)); }
+}
+@media (max-height: 560px) and (min-width: 700px) {
+  .arcade-modal .arcade-game { display: grid; grid-template-columns: minmax(0, 1fr) 230px; grid-template-areas: 'stage toolbar' 'stage score' 'stage boss' 'stage controls' 'stage checkpoint'; gap: .25rem .75rem; }
+  .arcade-modal .arcade-stage { grid-area: stage; align-self: center; width: 100%; max-width: calc((100dvh - 96px) * 12 / 7); }
+  .arcade-modal .arcade-toolbar { grid-area: toolbar; margin: 0; }
+  .arcade-modal .arcade-score { grid-area: score; padding: 0; }
+  .arcade-modal .arcade-boss { grid-area: boss; margin: 0; grid-template-columns: 1fr; }
+  .arcade-modal .arcade-controls { grid-area: controls; margin: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: 'left right duck' '. jump whip'; }
+  .arcade-modal .arcade-checkpoint { grid-area: checkpoint; margin: 0; flex-wrap: wrap; }
+}
