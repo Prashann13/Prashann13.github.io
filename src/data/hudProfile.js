@@ -1,7 +1,7 @@
 import { certifications } from './skills.js';
 export const averageLevel = (stats) => stats.length ? Math.round(stats.reduce((sum, stat) => sum + stat.value, 0) / stats.length) : 0;
 const stats = [{ id: 'frontend', label: 'Frontend', value: 80 }, { id: 'backend', label: 'Backend', value: 75 },
-  { id: 'data', label: 'Data/ML', value: 60 }, { id: 'security', label: 'Security', value: 65 }, { id: 'three', label: '3D', value: 70 }];
+  { id: 'data', label: 'AI/ML', value: 70 }, { id: 'security', label: 'Security', value: 65 }, { id: 'three', label: '3D', value: 60 }];
 export const hudProfile = {
   handle: 'Prashann', role: 'Full-Stack Developer',
   level: averageLevel(stats), levelLabel: 'Level', status: 'Open to full-time, freelance & collaborations',
