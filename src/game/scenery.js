@@ -12,7 +12,7 @@ export function drawBackground(ctx, state, config, colors) {
   ctx.fillStyle = colors.sky; ctx.fillRect(397, 20, 16, 9); ctx.fillRect(405, 29, 12, 7);
   ctx.fillStyle = colors.highlight;
   for (let i = 0; i < 22; i++) ctx.fillRect((i * 73 + 19) % 480, (i * 17 + 9) % 80, 1, 1);
-  const offset = state.reduced ? 0 : Math.round(state.camera * .15) % 144;
+  const offset = Math.round(state.camera * .15) % 144;
   for (let i = -1; i < 5; i++) {
     const x = i * 144 - offset;
     ctx.fillStyle = colors.far; ctx.fillRect(x, 78, 100, 152); ctx.fillRect(x + 10, 46, 22, 32);
@@ -42,7 +42,7 @@ export function drawCastle(ctx, state, config, colors) {
       }
       ctx.fillStyle = colors.far; ctx.fillRect(x + 40, 201, 22, 29); ctx.fillRect(x + 45, 193, 12, 8);
     }
-    const fire = state.reduced ? 0 : Math.floor(state.elapsed * 8 + x) % 3;
+    const fire = Math.floor(state.elapsed * 8 + x) % 3;
     ctx.fillStyle = colors.ink; ctx.fillRect(x + 120, 165, 5, 17); ctx.fillRect(x + 115, 177, 12, 3);
     ctx.globalAlpha = .12; ctx.fillStyle = colors.pickup; ctx.fillRect(x + 107, 148, 30, 36); ctx.globalAlpha = 1;
     ctx.fillStyle = colors.pickup; ctx.fillRect(x + 119, 159 - fire, 5, 12 + fire);

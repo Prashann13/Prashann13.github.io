@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import useTheme from '../hooks/useTheme';
-import useMediaQuery, { useReducedMotion } from '../hooks/useMediaQuery';
+import useMediaQuery from '../hooks/useMediaQuery';
 import useViewerInteraction from '../hooks/useViewerInteraction';
 import { blenderUi } from '../data/blenderUi';
 const ModelCanvas = lazy(() => import('./ModelCanvas'));
@@ -11,7 +11,7 @@ function rememberHint() {
  try { sessionStorage.setItem(ui.hintStorageKey, 'seen'); } catch { /* Storage is optional. */ }
 }
 export default function ModelViewer({ src, onUnavailable, excludedNodes, viewer = {}, renderScene = true }) {
- const { theme } = useTheme(); const reduced = useReducedMotion();
+ const { theme } = useTheme();
  const touchDevice = useMediaQuery('(pointer: coarse)');
  const [touchRequested, setTouchRequested] = useState(false);
  const sceneEnabled = renderScene && (!touchDevice || touchRequested);
@@ -22,7 +22,7 @@ export default function ModelViewer({ src, onUnavailable, excludedNodes, viewer 
  const [rotationChoice, setRotationChoice] = useState(null);
  const [animationPlaying, setAnimationPlaying] = useState(Boolean(viewer.animationAutoplay));
  const hasAnimations = Boolean(viewer.animationClips?.length);
- const autoRotate = rotationChoice ?? (Boolean(viewer.autoRotate ?? true) && !reduced);
+ const autoRotate = rotationChoice ?? Boolean(viewer.autoRotate ?? true);
  const [visible, setVisible] = useState(true), [fullscreen, setFullscreen] = useState(false);
  const [announcement, setAnnouncement] = useState('');
  const [hint, setHint] = useState(() => { try { return sessionStorage.getItem(ui.hintStorageKey) !== 'seen'; } catch { return true; } });
@@ -102,12 +102,12 @@ export default function ModelViewer({ src, onUnavailable, excludedNodes, viewer 
    aria-describedby={hintId} aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown + - R Space"
    data-touch-active={touchActive} data-dragging={dragging} onKeyDown={keyboard}>
    {sceneEnabled && <Suspense fallback={null}><ModelCanvas onUnavailable={onUnavailable} src={src} excludedNodes={excludedNodes} mode={mode} colors={colors} settings={settings}
-     reduced={reduced} visible={visible} apiRef={apiRef} onReady={loaded} onActivity={activity} onDragging={setDragging} />
+     visible={visible} apiRef={apiRef} onReady={loaded} onActivity={activity} onDragging={setDragging} />
    </Suspense>}
    {!ready && <p className="model-loading" role="status">{sceneEnabled ? ui.loading : ui.touchStart}</p>}
    <AnimatePresence>{hint && <m.div className="model-first-hint" aria-hidden="true"
-    initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .2 }}>
-    <m.span className="model-drag-icon" animate={reduced ? { x: 0 } : { x: [0, 5, -5, 0] }} transition={{ duration: 1.2 }} aria-hidden="true">↔</m.span>
+    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .2 }}>
+    <m.span className="model-drag-icon" animate={{ x: [0, 5, -5, 0] }} transition={{ duration: 1.2 }} aria-hidden="true">↔</m.span>
     <span>{touchDevice ? ui.touchHint : ui.firstHint}</span>
    </m.div>}</AnimatePresence>
   </div>

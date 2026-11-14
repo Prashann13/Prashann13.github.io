@@ -5,8 +5,8 @@ import { updateCheckpoint, restoreCheckpoint } from './checkpoints.js';
 import { updateBoss } from './boss.js';
 import { emitEffect, updateEffects } from './effects.js';
 
-export function createGame(config, reduced = false, best = 0) {
-  return { mode: 'ready', reduced, elapsed: 0, score: 0, best, camera: 0, jumpCount: 0, attackCount: 0, checkpoint: null, effects: [],
+export function createGame(config, best = 0) {
+  return { mode: 'ready', elapsed: 0, score: 0, best, camera: 0, jumpCount: 0, attackCount: 0, checkpoint: null, effects: [],
     player: { x: config.playerX, y: config.ground, vy: 0, grounded: true, duck: false, facing: 1,
       health: 3, invulnerable: 0, safeX: config.playerX, hold: 0, attack: 0, cooldown: 0, coyote: config.physics.coyoteTime, buffer: 0 },
     boss: { active: false, health: config.boss.health, x: config.boss.positions[0], y: 188, width: 42, height: 42,
@@ -18,7 +18,7 @@ export function createGame(config, reduced = false, best = 0) {
 }
 export function releaseInput(state) { for (const key of Object.keys(state.input)) state.input[key] = false; }
 export function beginRun(state, config) {
-  const fresh = createGame(config, state.reduced, state.best); Object.assign(state, fresh); state.mode = 'playing';
+  const fresh = createGame(config, state.best); Object.assign(state, fresh); state.mode = 'playing';
   config.level.enemies.forEach((enemy, index) => { Object.assign(state.entities[index], enemy, { active: true, direction: 1, originY: enemy.y, action: 'patrol', timer: 0 }); });
 }
 export function retryCheckpoint(state, config) {

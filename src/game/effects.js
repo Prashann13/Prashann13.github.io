@@ -1,5 +1,4 @@
 export function emitEffect(state, kind, x, y) {
-  if (state.reduced) return;
   if (state.effects.length >= 32) state.effects.shift();
   state.effects.push({ kind, x, y, age: 0, life: kind === 'victory' ? 1.1 : .35 });
 }

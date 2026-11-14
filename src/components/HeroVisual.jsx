@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import useMediaQuery, { useReducedMotion } from '../hooks/useMediaQuery';
+import useMediaQuery from '../hooks/useMediaQuery';
 import { content } from '../data/content';
 import '../styles/hero-logos.css';
 
@@ -14,11 +14,10 @@ const grid = [21 / 720, 252 / 720, 483 / 720];
 
 export default function HeroVisual() {
  const ref = useRef(null);
- const reduced = useReducedMotion();
  const hover = useMediaQuery('(hover: hover) and (pointer: fine)');
 
  useEffect(() => {
-  if (reduced || !hover) return;
+  if (!hover) return;
   const stage = ref.current;
   const tiles = Array.from(stage.children);
   const cells = logos.map((logo) => logo.cell);
@@ -90,7 +89,7 @@ export default function HeroVisual() {
    stage.removeEventListener('pointercancel', reset);
    document.removeEventListener('visibilitychange', visibility);
   };
- }, [reduced, hover]);
+ }, [hover]);
 
  return <div className="hero-visual hero-logo-animation" data-parallax>
   <div ref={ref} className="hero-logo-stage" role="img" aria-label={content.hero.artAlt}>
@@ -100,7 +99,7 @@ export default function HeroVisual() {
   </div>
   <div className="visual-caption">
    <p className="meta">{content.hero.artLabel}</p>
-   {hover && !reduced && <span className="meta">HOVER TO EXPLORE</span>}
+   {hover && <span className="meta">HOVER TO EXPLORE</span>}
   </div>
  </div>;
 }

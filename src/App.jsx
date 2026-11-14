@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import MotionFoundation from './components/MotionFoundation';
 import Preloader from './components/Preloader';
-import { useReducedMotion } from './hooks/useMediaQuery';
 import { ui } from './data/content';
 import { siteConfig } from './data/siteConfig';
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
@@ -18,16 +17,16 @@ const Skills = lazy(() => import('./pages/Skills'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const loadFeatures = () => import('./hooks/motionFeatures').then((module) => module.default);
-function RouteTransition({ children, reduced }) {
+function RouteTransition({ children }) {
  const present = useIsPresent();
- return <m.div inert={!present} className="route-transition" style={present ? undefined : { position: 'absolute', inset: '0 0 auto' }} initial={reduced ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .35 }}>{children}</m.div>;
+ return <m.div inert={!present} className="route-transition" style={present ? undefined : { position: 'absolute', inset: '0 0 auto' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: .35 }}>{children}</m.div>;
 }
 export default function App() {
- const location = useLocation(); const reduced = useReducedMotion();
- return <MotionConfig reducedMotion="user"><LazyMotion features={loadFeatures} strict>
+ const location = useLocation();
+ return <MotionConfig reducedMotion="never"><LazyMotion features={loadFeatures} strict>
   <div id="top" tabIndex={-1}><a href={siteConfig.sections.main} className="skip-link">{ui.skip}</a><Navbar /><ScrollToTop /><MotionFoundation /><Preloader />
    <main id="main" tabIndex={-1}>
-    <LayoutGroup id="portfolio-routes"><AnimatePresence initial={false} mode="sync"><RouteTransition key={location.pathname} reduced={reduced}>
+    <LayoutGroup id="portfolio-routes"><AnimatePresence initial={false} mode="sync"><RouteTransition key={location.pathname}>
      <Suspense fallback={<div className="route-loading" role="status">{ui.loading}</div>}>
       <Routes location={location}>
        <Route path={siteConfig.routes.home} element={<Home />} /><Route path={siteConfig.routes.projects} element={<Projects />} />

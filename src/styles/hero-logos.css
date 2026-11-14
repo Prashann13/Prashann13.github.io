@@ -14,4 +14,3 @@
 .hero-logo-tile--blender { transform: translate(9.722222%, 223.611111%); }
 .hero-logo-tile--sql { transform: translate(223.611111%, 223.611111%); }
 @media (max-width: 700px) { .hero-logo-animation { width: min(80%, 330px); max-height: none; } }
-@media (prefers-reduced-motion: reduce) { .hero-logo-tile { transition: none; } }

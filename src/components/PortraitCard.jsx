@@ -6,7 +6,7 @@ import { hudProfile as profile } from '../data/hudProfile';
 export default function PortraitCard() {
   const ref = useRef(null);
   const [flipped, setFlipped] = useState(false);
-  const interactive = useMediaQuery('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  const interactive = useMediaQuery('(hover: hover) and (pointer: fine)');
   const h = content.hero;
 
   useEffect(() => {

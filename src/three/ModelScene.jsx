@@ -9,7 +9,7 @@ import { fitDistance, viewerLimits, clampPan, zoomPosition } from './viewerMath'
 import { createClipPlayback } from './clipPlayback';
 import { modelBounds } from './modelBounds';
 
-function Asset({ src, excludedNodes, mode, colors, onFit, hotspots, reduced, visible, animationClips, animationAutoplay, animationPlaying, fitNodes, modelRotation = [0, 0, 0] }) {
+function Asset({ src, excludedNodes, mode, colors, onFit, hotspots, visible, animationClips, animationAutoplay, animationPlaying, fitNodes, modelRotation = [0, 0, 0] }) {
  const { scene, animations } = useGLTF(src, false, false);
  const playbackRef = useRef(null);
  const { invalidate } = useThree();
@@ -66,15 +66,15 @@ function Asset({ src, excludedNodes, mode, colors, onFit, hotspots, reduced, vis
   <primitive object={asset.clone} dispose={null} />
   {hotspots?.map((spot, index) => <Html key={index} position={spot.position} center distanceFactor={8} zIndexRange={[20, 0]}>
    <LazyMotion features={domAnimation} strict><details className="model-hotspot">
-    <m.summary aria-label={spot.label} title={spot.label} animate={reduced || !visible ? { scale: 1 } : { scale: [1, .94, 1] }}
-     transition={reduced || !visible ? { duration: 0 } : { duration: 3, repeat: Infinity }}><span aria-hidden="true">+</span><span className="sr-only">{spot.label}</span></m.summary>
+    <m.summary aria-label={spot.label} title={spot.label} animate={!visible ? { scale: 1 } : { scale: [1, .94, 1] }}
+     transition={!visible ? { duration: 0 } : { duration: 3, repeat: Infinity }}><span aria-hidden="true">+</span><span className="sr-only">{spot.label}</span></m.summary>
     <div role="note"><strong>{spot.label}</strong><p>{spot.description}</p></div>
    </details></LazyMotion>
   </Html>)}
  </group></group></group>;
 }
 
-export default function ModelScene({ src, excludedNodes, mode, colors, settings, reduced, visible,
+export default function ModelScene({ src, excludedNodes, mode, colors, settings, visible,
  apiRef, onReady, onActivity, onDragging }) {
  const { camera, gl, size, invalidate, setFrameloop, get } = useThree();
  const controlsRef = useRef(null);
@@ -104,12 +104,8 @@ export default function ModelScene({ src, excludedNodes, mode, colors, settings,
   const transition = (position, target) => {
    // Clear OrbitControls' remaining inertia before taking camera ownership.
    controls.autoRotate = false; controls.enableDamping = false; controls.update();
-   controls.enableDamping = !reduced; controls.enabled = false;
+   controls.enableDamping = true; controls.enabled = false;
    state.transition = { position: position.clone(), target: target.clone() };
-   if (reduced) {
-    camera.position.copy(position); controls.target.copy(target); camera.lookAt(target);
-    state.transition = null; controls.enabled = visible; controls.update();
-   }
    invalidate();
   };
   const api = {
@@ -145,7 +141,7 @@ export default function ModelScene({ src, excludedNodes, mode, colors, settings,
   if (visible && state.idleAt > performance.now()) state.timer = setTimeout(invalidate, state.idleAt - performance.now() + 20);
   apiRef.current = api;
   return () => { clearTimeout(state.timer); if (apiRef.current === api) apiRef.current = null; };
- }, [camera, visible, reduced, invalidate, apiRef, onActivity, onDragging]);
+ }, [camera, visible, invalidate, apiRef, onActivity, onDragging]);
 
  // Fit once after geometry loads; changing shading never replaces camera state.
  const fit = useCallback((radius) => {
@@ -187,7 +183,7 @@ export default function ModelScene({ src, excludedNodes, mode, colors, settings,
   controls.autoRotate = state.ready && settings.autoRotate && !state.holding && !state.transition && performance.now() >= state.idleAt;
   if (state.transition) {
    controls.enabled = false;
-   const amount = reduced ? 1 : 1 - Math.exp(-9 * Math.min(delta, .05));
+   const amount = 1 - Math.exp(-9 * Math.min(delta, .05));
    camera.position.lerp(state.transition.position, amount);
    controls.target.lerp(state.transition.target, amount); camera.lookAt(controls.target);
    if (camera.position.distanceToSquared(state.transition.position) + controls.target.distanceToSquared(state.transition.target) < .000001) {
@@ -208,9 +204,9 @@ export default function ModelScene({ src, excludedNodes, mode, colors, settings,
   <directionalLight position={[4, 6, 3]} intensity={3} />
   <directionalLight position={[-3, 2, -2]} color={colors.rim} intensity={1} />
   <Suspense fallback={null}><Asset src={src} excludedNodes={excludedNodes} mode={mode} colors={colors}
-   onFit={fit} hotspots={settings.hotspots} reduced={reduced} visible={visible}
+   onFit={fit} hotspots={settings.hotspots} visible={visible}
    animationClips={settings.animationClips} animationAutoplay={settings.animationAutoplay} animationPlaying={settings.animationPlaying} fitNodes={settings.fitNodes} modelRotation={settings.modelRotation} /></Suspense>
-  <OrbitControls ref={controlsRef} makeDefault domElement={gl.domElement} enableDamping={!reduced} dampingFactor={.08}
+  <OrbitControls ref={controlsRef} makeDefault domElement={gl.domElement} enableDamping dampingFactor={.08}
    enabled={visible} enableZoom={false} autoRotateSpeed={.8} rotateSpeed={.7} zoomSpeed={.7} panSpeed={.65}
    onStart={() => { apiRef.current?.activity(true); onDragging(true); }}
    onEnd={() => apiRef.current?.end()} />

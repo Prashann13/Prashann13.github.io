@@ -1,13 +1,11 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { useReducedMotion } from '../hooks/useMediaQuery';
 import { loadMotionEngine } from '../hooks/motionEngine';
 
 export default function SkillList({ items, labelledBy }) {
   const viewportRef = useRef(null);
   const instructionId = useId();
-  const reduced = useReducedMotion();
   const [failed, setFailed] = useState(false);
-  const isStatic = reduced || failed;
+  const isStatic = failed;
 
   useEffect(() => {
     if (isStatic) return;

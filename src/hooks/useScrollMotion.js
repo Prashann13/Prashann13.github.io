@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import { useReducedMotion } from './useMediaQuery';
 import { loadMotionEngine } from './motionEngine';
 
 export default function useScrollMotion(ref, key = '') {
-  const reduced = useReducedMotion();
   useEffect(() => {
-    if (reduced) return;
     let cancelled = false;
     let context;
     let media;
@@ -35,5 +32,5 @@ export default function useScrollMotion(ref, key = '') {
       }, ref);
     });
     return () => { cancelled = true; media?.revert(); context?.revert(); };
-  }, [ref, reduced, key]);
+  }, [ref, key]);
 }

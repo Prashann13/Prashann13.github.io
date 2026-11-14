@@ -13,7 +13,7 @@ export function drawGame(ctx, state, config, colors) {
       ctx.fillStyle = colors.hazard; ctx.fillRect(x, y + 1, 8, 4); ctx.fillRect(x + 2, y, 4, 6);
       ctx.fillStyle = colors.highlight; ctx.fillRect(x + 3, y + 2, 2, 2);
     } else {
-      const sprite = e.kind === 'flyer' ? (!state.reduced && Math.floor(state.elapsed * 7) % 2 ? ENEMIES.flyerUp : ENEMIES.flyer)
+      const sprite = e.kind === 'flyer' ? (Math.floor(state.elapsed * 7) % 2 ? ENEMIES.flyerUp : ENEMIES.flyer)
         : e.kind === 'sentry' ? ENEMIES.sentry : e.action === 'warn' ? ENEMIES.guardWarn : ENEMIES.guard;
       drawSprite(ctx, sprite, x, y, { ...colors, cloak: colors.hazard, steel: colors.enemySteel }, e.direction);
       if (e.action === 'warn') {
@@ -46,7 +46,7 @@ export function drawGame(ctx, state, config, colors) {
   const stage = attackStage(p, config.physics);
   const sprite = p.health <= 0 ? SPRITES.defeat : p.invulnerable > .85 ? SPRITES.hurt : p.duck ? SPRITES.duck
     : stage !== 'idle' ? SPRITES[stage] : !p.grounded ? (p.vy < 0 ? SPRITES.rise : SPRITES.fall)
-      : moving ? SPRITES.run[Math.floor(state.elapsed * 12) % SPRITES.run.length] : SPRITES.idle[state.reduced ? 0 : Math.floor(state.elapsed * 2) % 2];
+      : moving ? SPRITES.run[Math.floor(state.elapsed * 12) % SPRITES.run.length] : SPRITES.idle[Math.floor(state.elapsed * 2) % 2];
   ctx.globalAlpha = p.invulnerable > 0 ? .65 : 1;
   drawSprite(ctx, sprite, p.x, p.y - 34, colors, p.facing);
   ctx.globalAlpha = 1;
@@ -54,7 +54,7 @@ export function drawGame(ctx, state, config, colors) {
     ctx.fillStyle = colors.pickup; const whip = state.whipBox;
     ctx.fillRect(Math.round(whip.x), Math.round(p.y) - (p.duck ? 12 : 25), whip.width, 2);
     ctx.fillRect(Math.round(p.facing > 0 ? whip.x + whip.width - 3 : whip.x), Math.round(p.y) - (p.duck ? 12 : 25), 3, 5);
-    if (!state.reduced) { ctx.globalAlpha = .25; ctx.fillRect(whip.x, p.y - (p.duck ? 15 : 28), whip.width - 6, 1); ctx.globalAlpha = 1; }
+    ctx.globalAlpha = .25; ctx.fillRect(whip.x, p.y - (p.duck ? 15 : 28), whip.width - 6, 1); ctx.globalAlpha = 1;
   }
   for (const effect of state.effects) {
     ctx.globalAlpha = 1 - effect.age / effect.life;

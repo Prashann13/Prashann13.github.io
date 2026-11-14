@@ -1,21 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { mountArcade } from '../game/controller';
 import { gameConfig as config } from '../data/gameConfig';
-import { useReducedMotion } from '../hooks/useMediaQuery';
 
 export default function ArcadeGame({ onEnlarge, enlarged, onController }) {
   const root = useRef(null), canvas = useRef(null), controller = useRef(null);
-  const reduced = useReducedMotion();
   const [snapshot, setSnapshot] = useState({ mode: 'ready', score: 0, best: 0, health: 3, bossHealth: null, area: config.level.areas[0].name, hint: config.level.areas[0].hint, elapsed: 0, checkpoint: null });
   const [unavailable, setUnavailable] = useState(false); const ui = config.ui;
   useEffect(() => {
-    const engine = mountArcade(canvas.current, root.current, config, false, setSnapshot);
+    const engine = mountArcade(canvas.current, root.current, config, setSnapshot);
     controller.current = engine;
     onController(engine);
     if (!engine) setUnavailable(true);
     return () => { engine?.destroy(); controller.current = null; onController(null); };
   }, [onController]);
-  useEffect(() => { controller.current?.setReducedMotion(reduced); }, [reduced]);
   const { mode, score, best, health, bossHealth, area, hint, checkpoint, bossPhase, bossCue, elapsed } = snapshot;
   const action = mode === 'paused' ? ui.resume : mode === 'over' && checkpoint ? ui.retry : ['over', 'won'].includes(mode) ? ui.restart : ui.start;
   const time = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;

@@ -49,7 +49,6 @@
 .blender-preview:focus-visible { outline: 0; box-shadow: inset 0 0 0 3px var(--signal); }
 .blender-preview:focus-visible::after { content: ''; position: absolute; inset: 0; border: 3px solid var(--signal); z-index: 2; pointer-events: none; }
 @media (max-width: 700px) { .blender-grid { grid-template-columns: 1fr; gap: 2rem; } .blender-description-grid { grid-template-columns: 1fr; } .video-controls { padding: .5rem; } }
-@media (prefers-reduced-motion: reduce) { .blender-preview video { transition: none; } }
 
 /* One stage remains mounted across shading modes. Scroll safety overrides OrbitControls' inline touch-action. */
 .model-viewer { border: var(--line) solid var(--border); background: var(--surface); position: relative; }

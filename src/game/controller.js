@@ -2,12 +2,12 @@ import { createGame, beginRun, releaseInput, stepGame, retryCheckpoint } from '.
 import { drawGame } from './renderer.js';
 import { updateEffects } from './effects.js';
 
-export function mountArcade(canvas, root, config, reduced, onChange) {
+export function mountArcade(canvas, root, config, onChange) {
   const ctx = canvas.getContext('2d', { alpha: false });
   if (!ctx) return null;
   let best = 0;
   try { const saved = Number(localStorage.getItem(config.storageKey)); best = Number.isFinite(saved) && saved > 0 ? saved : 0; } catch { /* Storage is optional. */ }
-  const state = createGame(config, reduced, best);
+  const state = createGame(config, best);
   const colors = {};
   let raf = 0, last = 0, accumulator = 0, published = 0, visible = true, disposed = false;
   let duckTimer = 0, moveTimer = 0, lastSnapshot = '';
@@ -98,7 +98,6 @@ export function mountArcade(canvas, root, config, reduced, onChange) {
   palette(); resize(); publish();
   return {
     start, pause,
-    setReducedMotion: (value) => { state.reduced = value; if (value) state.effects = []; draw(); },
     retryCheckpoint: () => { if (state.mode === 'over' && state.checkpoint) { retryCheckpoint(state, config); start(); } },
     restart: () => { beginRun(state, config); start(); },
     move: (direction, held) => { if (state.mode === 'playing') state.input[direction < 0 ? 'left' : 'right'] = held; },

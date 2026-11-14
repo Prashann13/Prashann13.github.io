@@ -4,4 +4,3 @@ export default function useMediaQuery(query) {
  const snapshot = useCallback(() => window.matchMedia(query).matches, [query]);
  return useSyncExternalStore(subscribe, snapshot, () => false);
 }
-export function useReducedMotion() { return useMediaQuery('(prefers-reduced-motion: reduce)'); }
